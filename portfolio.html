@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niranjan Jagtap | Backend Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Modern Professional Palette */
+            --bg-color: #0B1120;       /* Deep Navy */
+            --surface-color: #1E293B;  /* Slate */
+            --primary-color: #38BDF8;  /* Electric Blue */
+            --text-primary: #F8FAFC;   /* White */
+            --text-secondary: #94A3B8; /* Muted Grey */
+            --border-color: #334155;
+            --glass-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION (Glassmorphism) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--primary-color); }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 180px 2rem 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h2 {
+            color: var(--primary-color);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .btn-group { display: flex; gap: 1rem; }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #0f172a;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+        /* --- CODE WINDOW VISUAL --- */
+        .code-window {
+            background: #1e293b;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            font-family: 'Fira Code', monospace;
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s;
+        }
+        .code-window:hover { transform: perspective(1000px) rotateY(0) rotateX(0); }
+
+        .window-header {
+            background: #0f172a;
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ef4444; } .yellow { background: #eab308; } .green { background: #22c55e; }
+
+        .window-body { padding: 20px; color: #e2e8f0; font-size: 0.9rem; }
+        .keyword { color: #c084fc; } .string { color: #86efac; } .func { color: #38bdf8; }
+
+        /* --- SECTION STYLES --- */
+        section { padding: 100px 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-header { margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-secondary); }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--surface-color);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .skill-card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
+        .skill-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+
+        /* --- PROJECT CARDS (Horizontal) --- */
+        .project-card {
+            background: var(--surface-color);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr;
+            transition: 0.3s;
+        }
+
+        .project-content { padding: 40px; }
+        
+        .project-tags { display: flex; gap: 10px; margin: 15px 0 25px; flex-wrap: wrap; }
+        .tag {
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #020617;
+            padding: 60px 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; padding-top: 120px; text-align: center; }
+            .hero-text p { margin: 0 auto 2.5rem; }
+            .btn-group { justify-content: center; }
+            .code-window { display: none; } /* Hide code visual on small mobile for cleanliness */
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">NJ<span>.</span></div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Work</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Backend Developer</h2>
+            <h1>Engineering logic driven systems.</h1>
+            <p>
+                I am Niranjan Jagtap, a software engineer specializing in high-performance backend systems using C++ and Java. I build the engines that power modern applications.
+            </p>
+            <div class="btn-group">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="mailto:niranjanjagtap9007@gmail.com" class="btn btn-secondary">Download Resume</a>
+            </div>
+        </div>
+        
+        <div class="code-window">
+            <div class="window-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="window-body">
+                <div style="margin-bottom: 10px; color: #64748b;">// Niranjan's Profile Class</div>
+                <div><span class="keyword">class</span> <span class="func">Developer</span> {</div>
+                <div style="padding-left: 20px;">
+                    <span class="keyword">String</span> name = <span class="string">"Niranjan Jagtap"</span>;
+                </div>
+                <div style="padding-left: 20px;">
+                    <span class="keyword">String</span> location = <span class="string">"Solapur, India"</span>;
+                </div>
+                <div style="padding-left: 20px;">
+                    <span class="keyword">String</span>[] skills = {<span class="string">"Java"</span>, <span class="string">"C++"</span>, <span class="string">"SQL"</span>};
+                </div>
+                <div style="padding-left: 20px; margin-top: 10px;">
+                    <span class="keyword">void</span> <span class="func">solveProblem</span>() {
+                        <span class="keyword">return</span> <span class="string">"Optimized Solution"</span>;
+                    }
+                </div>
+                <div>}</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Proficiency</h2>
+                <p>My toolkit for building robust software.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-java skill-icon"></i>
+                    <h3>Java Development</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">OOPs, Collections, Backend Logic</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code skill-icon"></i>
+                    <h3>C++ Programming</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Memory Management, STL, Algorithms</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python skill-icon"></i>
+                    <h3>Python & ML</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Scikit-learn, Data Analysis, Automation</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database skill-icon"></i>
+                    <h3>Database (SQL)</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Schema Design, Normalization, Queries</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Projects</h2>
+                <p>Selected work demonstrating algorithmic problem solving.</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Automated Resume Screening System</h3>
+                        <a href="https://github.com/Niran2110" style="color: var(--text-secondary); font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+                    </div>
+                    <p style="color: var(--text-secondary);">
+                        A Machine Learning solution to automate the recruitment process. The system parses resumes and matches them against job descriptions using <strong>TF-IDF and Cosine Similarity</strong> algorithms.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">NLP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Matrix Puzzle Engine</h3>
+                        <a href="https://github.com/Niran2110" style="color: var(--text-secondary); font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+                    </div>
+                    <p style="color: var(--text-secondary);">
+                        A performance-critical C application that generates and validates complex number puzzles. Utilizes low-level memory management and matrix operations to ensure efficient runtime execution.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">C Language</span>
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Data Structures</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" style="background: #0f172a;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Education & Certifications</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                
+                <div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">Academic Background</h3>
+                    <div style="padding-left: 20px; border-left: 2px solid var(--border-color);">
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="font-size: 1.1rem;">B.Tech in Computer Science</h4>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Tatyasaheb Kore Institute (2022 - Present)</div>
+                            <div style="color: #fff; margin-top: 5px; font-weight: 600;">CGPA: 8.65</div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem;">HSC (Science)</h4>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Shree Sangmeshwar College</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">Licenses & Certifications</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: var(--surface-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <i class="fas fa-certificate" style="color: var(--primary-color); margin-right: 10px;"></i>
+                            <strong>Java Full Stack</strong> <span style="color: var(--text-secondary);"> - Eduskill</span>
+                        </div>
+                        <div style="background: var(--surface-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <i class="fab fa-python" style="color: var(--primary-color); margin-right: 10px;"></i>
+                            <strong>Python (Basic)</strong> <span style="color: var(--text-secondary);"> - HackerRank</span>
+                        </div>
+                        <div style="background: var(--surface-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <i class="fas fa-robot" style="color: var(--primary-color); margin-right: 10px;"></i>
+                            <strong>Generative AI</strong> <span style="color: var(--text-secondary);"> - Oracle</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 style="margin-bottom: 20px;">Ready to collaborate?</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">I am currently open to internship opportunities and backend development roles.</p>
+        <a href="mailto:niranjanjagtap9007@gmail.com" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">Get In Touch</a>
+        
+        <div style="margin-top: 50px; display: flex; justify-content: center; gap: 30px;">
+            <a href="https://github.com/Niran2110" style="color: var(--text-secondary); font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/niranjan-jagtap" style="color: var(--text-secondary); font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div style="margin-top: 30px; color: #475569; font-size: 0.8rem;">
+            &copy; 2025 Niranjan Jagtap.
+        </div>
+    </footer>
+
+</body>
+</html>
